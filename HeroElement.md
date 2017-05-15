@@ -34,8 +34,8 @@ HeroElement属性把页面中最重要的元素标志出来，并对该元素进
 
 - 浏览器如何处理
 	- needspeedup
-		- 对heroElement parse时，不打断
-		- 保存资源相关的子element，调整相关资源的优先级
+		- 以heroElement为参考，控制parser的进度，如：不打断parse, 直到解析到heroElement结束tag, 之后马上layout，paint
+		- 保存资源相关的子element，调整相关资源的优先级，优先发起子资源请求
 		- 其它优化手段
 	- needTiming
 		- 见google的elementTiming
@@ -49,7 +49,6 @@ HeroElement属性把页面中最重要的元素标志出来，并对该元素进
 
 			<div heroElement="true false">first meaningful paint</div>
 			//or <div markAsHeroElement="true" speedup="true">first meaningful paint</div>
-	加对比截图
 
 	- 监听重要元素完成绘制
 
@@ -69,6 +68,6 @@ HeroElement属性把页面中最重要的元素标志出来，并对该元素进
 
 ## 相关
 
-这个想法来自于:qq浏览器在加速首屏显示优化的过程中，发现用户指定首屏标签，然后对其加速，效果良好（加数据）。 后来在github上看到elementTiming的提议，这个是由panicker提出来的，主要针对timing。现在结合首屏标签，对其进行扩充。在首屏标签的使用过程中，发现前端页面开发工程师对element内容是否完全绘制到屏幕中有需求，故加上返回event的思路。之后跟百度浏览器讨论后，两家浏览器觉得可以往这个方向努力。
+这个想法来自于: qq浏览器在加速首屏显示优化的过程中，利用页面开发者指定首屏的标签，并对其加速，效果良好。 后来在github上看到elementTiming的提议，这个是由panicker提出来的，主要针对timing。现在结合首屏标签，对其进行扩充。在首屏标签的使用过程中，页面开发者关心element内容是否完全绘制到屏幕中，故加上返回event的思路。之后跟百度浏览器一起讨论后，两家浏览器觉得可以往这个方向努力。
 
 建议？
