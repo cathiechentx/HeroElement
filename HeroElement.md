@@ -47,22 +47,30 @@ HeroElement这个概念由@panicker提出，本提议对HeroElement的功能进�
 		- finish layouted： finish loaded之后的第一次layout结束
 		- finish painted： finish layouted之后的第一次paint
 - Use Cases
-	- 首屏元素加速
+	- 首屏时间加速：首屏时间是浏览器第一次把屏幕绘制完整的时间。这个时间意味着用户可以阅读网页上的内容，越早越好。传统的首屏优化方案，通过浏览器猜测是否完成首屏，很不准确。
+
 
 			<!-- All the nodes inside heroElement will be handled in one parse pass -->
 			<!-- or <div markAsHeroElement="true" speedup="true">first meaningful paint</div> -->
 			<div heroElement="true false">
+			  <!-- First screen content begin -->
 			  <h1>first meaningful paint<h1>
-			  <!-- This img will be speed up -->
+
+			  <!-- This image will be speed up -->
 			  <img src="...">
+
 			  <!-- Lots of element -->
 			  ...
+			  <!-- First screen content end -->
 			</div>
+	
 
-	- HeroElement完成layout后，改变其visiblity属性
+	- HeroElement完成paint后，让其显示到屏幕上。这个效果的目的在于减少用户看到白屏或不完整绘制的概率。
 
-			<!-- or <div markAsHeroElement="true" onFullLayoutFinished="foo()" id="hero" style="visibility: hidden;"> -->
-			<div heroElement="false false" onFullLayoutFinished="foo()" id="hero" style="visibility: hidden;">
+			<div id="mask" style="position:fixed; width:100%; height:100%; background-color:blue;"></div>
+
+			<!-- or <div markAsHeroElement="true" onFullPaintFinished="foo()" id="hero" style="visibility: hidden;"> -->
+			<div heroElement="false false" onFullPaintFinished="foo()" id="hero" style="visibility: hidden;">
 			  ...
 			</div>
 
@@ -70,9 +78,10 @@ HeroElement这个概念由@panicker提出，本提议对HeroElement的功能进�
 
 			<script>
 				function foo() {
-					document.getElementById("hero").style.visibility="visible";
+					document.getElementById("mask").style.display="none";
 				}
 			</script>
+
 	- timing：见google文档
 
 ## 后期可以继续努力的方向

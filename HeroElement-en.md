@@ -38,7 +38,7 @@ With HeroElement, user agent could easily distinguish critical part of web page 
 		- The element specified as HeroElement
 	- needspeedup
 		- According to HeroElement，control the parsing process of HeroElement，eg. Don't break parsing until got the end tag, after that stop parsing immediately and do next process: layout, paint...
-		- Record the sub-resource of HeroElement，high priority these sub-resources
+		- Record the sub-resource of HeroElement as key-point sub-resource，high priority them, or cache them before hand.
 		- others
 	- needTiming
 		- [ElementTiming](https://github.com/w3c/charter-webperf/issues/30)
@@ -49,23 +49,29 @@ With HeroElement, user agent could easily distinguish critical part of web page 
 		- finish painting： The first paint after finishing layout
 
 - Use cases
-	- Speed up the process of first meaningful paint
+	- Speed up the process of first screen paint. The time of first screen paint is when the first screen content fully painted. From first screen paint users could read web content. User agent would speed up the first screen content. User agent guesses which elements belong to first screen content. That isn't accurate usually. With HeroElement, user agent could easily know that.
 
 			<!-- All the nodes inside heroElement will be handled in one parse pass -->
 			<!-- or <div markAsHeroElement="true" speedup="true">first meaningful paint</div> -->
 			<div heroElement="true false">
+			  <!-- First screen content begin -->
 			  <h1>first meaningful paint<h1>
-			  <!-- This img will be speed up -->
+
+			  <!-- This image will be speed up -->
 			  <img src="...">
+
 			  <!-- Lots of element -->
 			  ...
+			  <!-- First screen content end -->
 			</div>
 			
 
-	- Change visibility after HeroElement finishing layout 
+	- Show the HeroElement on screen after it finishing paint. This could reduce the appearance of white screen or part drawing. It couldn't be sure if the images has been drawed. "FullPaintFinished" fired when all subresouces finish loading.  
 
-			<!-- or <div markAsHeroElement="true" onFullLayoutFinished="foo()" id="hero" style="visibility: hidden;"> -->
-			<div heroElement="false false" onFullLayoutFinished="foo()" id="hero" style="visibility: hidden;">
+			<div id="mask" style="position:fixed; width:100%; height:100%; background-color:blue;"></div>
+
+			<!-- or <div markAsHeroElement="true" onFullPaintFinished="foo()" id="hero" style="visibility: hidden;"> -->
+			<div heroElement="false false" onFullPaintFinished="foo()" id="hero" style="visibility: hidden;">
 			  ...
 			</div>
 
@@ -73,7 +79,7 @@ With HeroElement, user agent could easily distinguish critical part of web page 
 
 			<script>
 				function foo() {
-					document.getElementById("hero").style.visibility="visible";
+					document.getElementById("mask").style.display="none";
 				}
 			</script>
 
