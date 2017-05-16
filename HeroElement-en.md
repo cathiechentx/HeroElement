@@ -1,6 +1,6 @@
 # Proposal: Specify an element as HeroElement in web page
 
-[HeroElement](https://docs.google.com/document/d/1yRYfYR1DnHtgwC4HRR04ipVVhT1h5gkI6yPmKCgJkyQ/edit#) is proposed by panicker@. We extend it a bit here. In short, HeroElement is an important element in web page which is specified by web developer.
+[HeroElement](https://docs.google.com/document/d/1yRYfYR1DnHtgwC4HRR04ipVVhT1h5gkI6yPmKCgJkyQ/edit#) is proposed by @panicker. We extend it a bit here. In short, HeroElement is an important element in web page which is specified by web developer.
 
 ## Why HeroElement?
 
