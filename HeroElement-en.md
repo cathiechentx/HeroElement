@@ -66,7 +66,7 @@ With HeroElement, user agent could easily distinguish critical part of web page 
 			</div>
 			
 
-	- Show the HeroElement on screen after it finishing paint. This could reduce the appearance of white screen or part drawing. It couldn't be sure if the images has been drawed. "FullPaintFinished" fired when all subresouces finish loading.  
+	- Show the HeroElement on screen after it finish paint. This could reduce the appearance of white screen. It couldn't be sure if the images has been drew. "FullPaintFinished" fired when all subresouces finish loading.  
 
 			<div id="mask" style="position:fixed; width:100%; height:100%; background-color:blue;"></div>
 
