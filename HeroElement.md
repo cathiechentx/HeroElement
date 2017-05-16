@@ -47,7 +47,7 @@ HeroElement这个概念由@panicker提出，本提议对HeroElement的功能进�
 		- finish layouted： finish loaded之后的第一次layout结束
 		- finish painted： finish layouted之后的第一次paint
 - Use Cases
-	- 首屏时间加速：首屏时间是浏览器第一次把屏幕绘制完整的时间。这个时间意味着用户可以阅读网页上的内容，越早越好。传统的首屏优化方案，通过浏览器猜测是否完成首屏，很不准确。
+	- 首屏时间加速：首屏时间是浏览器第一次把屏幕绘制完整的时间。这个时间意味着用户可以阅读网页上的内容，越早越好。传统的首屏优化方案，通过浏览器猜测是否完成首屏，很不准确。通过HeroElement可以轻易区分出是否首屏。
 
 
 			<!-- All the nodes inside heroElement will be handled in one parse pass -->
@@ -65,7 +65,7 @@ HeroElement这个概念由@panicker提出，本提议对HeroElement的功能进�
 			</div>
 	
 
-	- HeroElement完成paint后，让其显示到屏幕上。这个效果的目的在于减少用户看到白屏或不完整绘制的概率。
+	- HeroElement完成paint后，让其显示到屏幕上。这个效果的目的在于减少用户看到白屏或不完整绘制的概率。但目前无法确认图片是否已被绘制。onFullPaintFinished确保相应子资源加载完后，再fire。
 
 			<div id="mask" style="position:fixed; width:100%; height:100%; background-color:blue;"></div>
 
