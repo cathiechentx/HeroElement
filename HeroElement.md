@@ -18,7 +18,7 @@ HeroElement属性把页面中最重要的元素标志出来，并对该元素进
 			- all subresource loaded
 			- fully layouted
 			- fully painted
-		- 性能监控：elementTiming
+		- 性能监控：[ElementTiming](https://github.com/w3c/charter-webperf/issues/30)
 - 从页面开发者角度：
 	- 指定一个最重要的元素，监听需要的消息
 	- 该元素会被加速显示
@@ -33,12 +33,14 @@ HeroElement属性把页面中最重要的元素标志出来，并对该元素进
 		<div markAsHeroElement="true" speedup="true" elementTiming="..." onFullPaintted="foo()">
 
 - 浏览器如何处理
+ 	- element
+		- 被指定为HeroElement的element
 	- needspeedup
 		- 以heroElement为参考，控制parser的进度，如：不打断parse, 直到解析到heroElement结束tag, 之后马上layout，paint
 		- 保存资源相关的子element，调整相关资源的优先级，优先发起子资源请求
 		- 其它优化手段
 	- needTiming
-		- 见google的elementTiming
+		- 见google的[ElementTiming](https://github.com/w3c/charter-webperf/issues/30)
 	- events
 		- finish dom construct: parse到heroElement的结束tag
 		- finish loaded: dom构造完，且子树中的所有子资源已经下载完成
@@ -47,17 +49,28 @@ HeroElement属性把页面中最重要的元素标志出来，并对该元素进
 - Use Cases
 	- 首屏元素加速
 
-			<div heroElement="true false">first meaningful paint</div>
-			//or <div markAsHeroElement="true" speedup="true">first meaningful paint</div>
+			<!-- All the nodes inside heroElement will be handled in one parse pass -->
+			<!-- or <div markAsHeroElement="true" speedup="true">first meaningful paint</div> -->
+			<div heroElement="true false">
+			  <h1>first meaningful paint<h1>
+			  <!-- This img will be speed up -->
+			  <img src="...">
+			  <!-- Lots of element -->
+			  ...
+			</div>
 
-	- 监听重要元素完成绘制
+	- HeroElement完成layout后，改变其visiblity属性
 
-			<div heroElement="false false" onFullPaintFinished="foo()">
-			//or <div markAsHeroElement="true" onFullPaintFinished="foo()">
+			<!-- or <div markAsHeroElement="true" onFullLayoutFinished="foo()" id="hero" style="visibility: hidden;"> -->
+			<div heroElement="false false" onFullLayoutFinished="foo()" id="hero" style="visibility: hidden;">
+			  ...
+			</div>
+
 			...
+
 			<script>
 				function foo() {
-					alert("Hero element has been painted");
+					document.getElementById("hero").style.visibility="visible";
 				}
 			</script>
 	- timing：见google文档
@@ -68,6 +81,6 @@ HeroElement属性把页面中最重要的元素标志出来，并对该元素进
 
 ## 相关
 
-这个想法来自于: qq浏览器在加速首屏显示优化的过程中，利用页面开发者指定首屏的标签，并对其加速，效果良好。 后来在github上看到elementTiming的提议，这个是由panicker提出来的，主要针对timing。现在结合首屏标签，对其进行扩充。在首屏标签的使用过程中，页面开发者关心element内容是否完全绘制到屏幕中，故加上返回event的思路。百度浏览器也参加了讨论，提出过类似的方案，两家浏览器觉得可以往这个方向努力。
+这个想法来自于: qq浏览器在加速首屏显示优化的过程中，利用页面开发者指定首屏的标签，并对其加速，效果良好。 后来在github上看到[ElementTiming](https://github.com/w3c/charter-webperf/issues/30)的提议，这个是由panicker提出来的，主要针对timing。现在结合首屏标签，对其进行扩充。在首屏标签的使用过程中，页面开发者关心element内容是否完全绘制到屏幕中，故加上返回event的思路。百度浏览器也参加了讨论，提出过类似的方案，两家浏览器觉得可以往这个方向努力。
 
-建议？
+建议？ @igrigorik, @panicker
