@@ -1,6 +1,6 @@
 # 新增HeroElement属性的提议
 
-HeroElement属性把页面中最重要的元素标志出来，并对该元素进行优化和监控处理。
+HeroElement这个概念由@panicker提出，本提议对HeroElement的功能进行了一些丰富。HeroElement是由开发者指定的页面中最重要的元素，浏览器可以对该元素进行优化和监控处理。
 
 ## 为啥要有HeroElement属性
 
