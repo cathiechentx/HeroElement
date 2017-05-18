@@ -64,6 +64,15 @@ With HeroElement, user agent could easily distinguish critical part of web page 
 			  ...
 			  <!-- First screen content end -->
 			</div>
+
+		QQBrowse have implemented HeroElement speedup first screen paint. Cooperating with [sogou search page](https://m.sogou.com/web/searchList.jsp?pid=sogou-clse-2996962656838a97&e=1427&g_f=123&keyword=%E5%A4%A7%E4%B8%BB%E5%AE%B0), the result come out with **25%** speed up of first screen paint in average. See the comparing video [here](http://res.imtt.qq.com///qqbrowser_x5/cathiechen/HeroElement/hev.html)
+
+		Tracing data shortcut compare:
+		- without HeroElement Opt
+		![without HeroElement Opt](http://i.imgur.com/MoSVgkJ.png)
+
+		- with HeroElement Opt
+		![with HeroElement Opt](http://i.imgur.com/nWrJRkg.png)
 			
 
 	- Show the HeroElement on screen after it finish paint. This could reduce the appearance of white screen. It couldn't be sure if the images has been drew. "FullPaintFinished" fired when all subresouces finish loading.  
