@@ -1,4 +1,4 @@
-# Proposal: Specify an element as HeroElement in web page
+# Proposal: Enhance HeroElement
 
 [HeroElement](https://docs.google.com/document/d/1yRYfYR1DnHtgwC4HRR04ipVVhT1h5gkI6yPmKCgJkyQ/edit#) is proposed by @panicker. We extend it a bit here. In short, HeroElement is an important element in web page which is specified by web developer.
 
@@ -49,7 +49,7 @@ With HeroElement, user agent could easily distinguish critical part of web page 
 		- finish painting： The first paint after finishing layout
 
 - Use cases
-	- Speed up the process of first screen paint. The time of first screen paint is when the first screen content fully painted. From first screen paint users could read web content. User agent would speed up the first screen content. User agent guesses which elements belong to first screen content. That isn't accurate usually. With HeroElement, user agent could easily know that.
+	- Speed up the process of first screen paint. The time of first screen paint is when the first screen content fully painted. From first screen paint users could read web content. User agent would speed up the first screen paint. User agent guesses which elements belong to first screen content. That isn't accurate usually. With HeroElement, user agent could easily know that.
 
 			<!-- All the nodes inside heroElement will be handled in one parse pass -->
 			<!-- or <div markAsHeroElement="true" speedup="true">first meaningful paint</div> -->
@@ -65,7 +65,8 @@ With HeroElement, user agent could easily distinguish critical part of web page 
 			  <!-- First screen content end -->
 			</div>
 
-		QQBrowse have implemented HeroElement speedup first screen paint. Cooperating with [sogou search page](https://m.sogou.com/web/searchList.jsp?pid=sogou-clse-2996962656838a97&e=1427&g_f=123&keyword=%E5%A4%A7%E4%B8%BB%E5%AE%B0), the result come out with **25%** speed up of first screen paint in average. See the comparing video [here](http://res.imtt.qq.com///qqbrowser_x5/cathiechen/HeroElement/hev.html)
+		QQBrowse has implemented speedup optimization of first screen paint by HeroElement. Cooperating with [sogou search page](https://m.sogou.com/web/searchList.jsp?pid=sogou-clse-2996962656838a97&e=1427&g_f=123&keyword=%E5%A4%A7%E4%B8%BB%E5%AE%B0), this optimization speed up the first screen paint of [sogou search page](https://m.sogou.com/web/searchList.jsp?pid=sogou-clse-2996962656838a97&e=1427&g_f=123&keyword=%E5%A4%A7%E4%B8%BB%E5%AE%B0) in wifi by ** 25% ** on average. See the comparing video [here](http://res.imtt.qq.com///qqbrowser_x5/cathiechen/HeroElement/hev.html)
+
 
 		Tracing data shortcut compare:
 		- without HeroElement Opt
@@ -75,12 +76,13 @@ With HeroElement, user agent could easily distinguish critical part of web page 
 		![with HeroElement Opt](http://i.imgur.com/nWrJRkg.png)
 			
 
-	- Show the HeroElement on screen after it finish paint. This could reduce the appearance of white screen. It couldn't be sure if the images has been drew. "FullPaintFinished" fired when all subresouces finish loading.  
+	- Show the HeroElement on screen after it finish paint. This could reduce the appearance of white screen. But it couldn't be sure if the images has been drew. "FullPaintFinished" fired when all subresouces finish loading.  
 
 			<div id="mask" style="position:fixed; width:100%; height:100%; background-color:blue;"></div>
 
 			<!-- or <div markAsHeroElement="true" onFullPaintFinished="foo()" id="hero" style="visibility: hidden;"> -->
 			<div heroElement="false false" onFullPaintFinished="foo()" id="hero" style="visibility: hidden;">
+			  <!-- Contains lots of images -->
 			  ...
 			</div>
 
