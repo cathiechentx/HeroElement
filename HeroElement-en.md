@@ -69,10 +69,10 @@ With HeroElement, user agent could easily distinguish critical part of web page 
 
 
 		Tracing data shortcut compare:
-		- without HeroElement Opt
+		- without HeroElement Optimization
 		![without HeroElement Opt](http://i.imgur.com/MoSVgkJ.png)
 
-		- with HeroElement Opt
+		- with HeroElement Optimization
 		![with HeroElement Opt](http://i.imgur.com/nWrJRkg.png)
 			
 
