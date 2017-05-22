@@ -20,9 +20,9 @@ With HeroElement, user agent could easily distinguish critical part of web page 
 		- [ElementTiming](https://github.com/w3c/charter-webperf/issues/30): Had been discussed at TPAC 2016
 
 - For web developer:
-	- Specify a HeroElement, listen to the corresponding event
+	- Specify a HeroElement, listen to the corresponding events
 	- The HeroElement will be speed up
-	- Trigger other movement when event fired
+	- Trigger other movement when events fired
 	- Analysis the performance of HeroElement by [ElementTiming](https://github.com/w3c/charter-webperf/issues/30)
 
 ## How to use?
@@ -37,7 +37,7 @@ With HeroElement, user agent could easily distinguish critical part of web page 
 	- element
 		- The element specified as HeroElement
 	- needspeedup
-		- According to HeroElement，control the parsing process of HeroElement，eg. Don't break parsing until got the end tag, after that stop parsing immediately and do next process: layout, paint...
+		- According to HeroElement，control the parsing process of HeroElement，eg. Don't break parsing until got the end tag, after that, stop parsing immediately and do next process: layout, paint...
 		- Record the sub-resource of HeroElement as key-point sub-resource，high priority them, or cache them before hand.
 		- others
 	- needTiming
@@ -76,10 +76,12 @@ With HeroElement, user agent could easily distinguish critical part of web page 
 		![with HeroElement Opt](http://i.imgur.com/nWrJRkg.png)
 			
 
-	- Show the HeroElement on screen after it finish paint. This could reduce the appearance of white screen. But it couldn't be sure if the images has been drew. "FullPaintFinished" fired when all subresouces finish loading.  
+	- Show the HeroElement on screen after it finish paint. With a mask this could reduce the appearance of white screen. But it couldn't be sure if the images has been drew. "FullPaintFinished" fired when all subresouces finish loading. So "FullPaintFinished" could be a signal of HeroElement been fully painted. This solution used a lot in hybrid apps which listened "onPageFinished" of webview to switch views. "onPageFinished" is not the exact time of content fully painted. Go a little further, maybe WebViewClient could consider of adding a "FullPaintFinished" API. 
 
+			<!-- Mask -->
 			<div id="mask" style="position:fixed; width:100%; height:100%; background-color:blue;"></div>
 
+			<!-- Content -->
 			<!-- or <div markAsHeroElement="true" onFullPaintFinished="foo()" id="hero" style="visibility: hidden;"> -->
 			<div heroElement="false false" onFullPaintFinished="foo()" id="hero" style="visibility: hidden;">
 			  <!-- Contains lots of images -->
@@ -101,6 +103,6 @@ With HeroElement, user agent could easily distinguish critical part of web page 
 
 ## Related
 
-We found the optimizing of first meaningful paint will be more effective if we know the exact elements which are shown in the first screen. The concept of [HeroElement](https://docs.google.com/document/d/1yRYfYR1DnHtgwC4HRR04ipVVhT1h5gkI6yPmKCgJkyQ/edit#) proposed by panicker@ is used in [ElementTiming](https://github.com/w3c/charter-webperf/issues/30). We add speeding-up into HeroElement. According to QQBrowser's experiences we know web developers care about the first meaningful paint finishing time. So we add the event notification into HeroElement. Baidu browser had a similar idea before. After discussing with them, we think we could work in this direction.
+We found the optimizing of first screen content paint will be more effective if we know the exact elements which are shown in the first screen. The concept of [HeroElement](https://docs.google.com/document/d/1yRYfYR1DnHtgwC4HRR04ipVVhT1h5gkI6yPmKCgJkyQ/edit#) proposed by panicker@ is used in [ElementTiming](https://github.com/w3c/charter-webperf/issues/30). We add speeding-up into HeroElement. According to QQBrowser's experiences we know web developers care about the first screen content paint's finishing time. So we add the event notification into HeroElement. Baidu browser had a similar idea before. After discussing with them, we think we could work in this direction.
 
 Any suggestions? @igrigorik, @panicker
