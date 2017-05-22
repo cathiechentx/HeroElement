@@ -37,7 +37,7 @@ With HeroElement, user agent could easily distinguish critical part of web page 
 	- element
 		- The element specified as HeroElement
 	- needspeedup
-		- According to HeroElement，control the parsing process of HeroElement，eg. Don't break parsing until got the end tag, after that, stop parsing immediately and do next process: layout, paint...
+		- According to HeroElement，control the parsing process of HeroElement. eg. Once HeroElement be parsed don't break parsing until got its end tag, after that, stop parsing immediately and do next process: layout, paint...
 		- Record the sub-resource of HeroElement as key-point sub-resource，high priority them, or cache them before hand.
 		- others
 	- needTiming
