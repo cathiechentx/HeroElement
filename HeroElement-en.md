@@ -37,7 +37,7 @@ With HeroElement, user agent could easily distinguish critical part of web page 
 	- element
 		- The element specified as HeroElement
 	- needspeedup
-		- According to HeroElement，control the parsing process of HeroElement. eg. Once HeroElement be parsed don't break parsing until got its end tag, after that, stop parsing immediately and do next process: layout, paint...
+		- According to HeroElement，control the parsing process of HeroElement. E.g. Once HeroElement be parsed don't break parsing until got its end tag, after that, stop parsing immediately and do next process: layout, paint...
 		- Record the sub-resource of HeroElement as key-point sub-resource，high priority them, or cache them before hand.
 		- others
 	- needTiming
@@ -76,7 +76,7 @@ With HeroElement, user agent could easily distinguish critical part of web page 
 		![with HeroElement Opt](http://i.imgur.com/nWrJRkg.png)
 			
 
-	- Show the HeroElement on screen after it finish paint. With a mask this could reduce the appearance of white screen. But it couldn't be sure if the images has been drew. "FullPaintFinished" fired when all subresouces finish loading. So "FullPaintFinished" could be a signal of HeroElement been fully painted. This solution used a lot in hybrid apps which listened "onPageFinished" of webview to switch views. "onPageFinished" is not the exact time of content fully painted. Go a little further, maybe WebViewClient could consider of adding a "FullPaintFinished" API. 
+	- Show the HeroElement on screen after it finish paint. With a mask this could reduce the appearance of white screen. But it couldn't be sure if the images has been drawn. "FullPaintFinished" fired when all subresouces finish loading. So "FullPaintFinished" could be a signal of HeroElement been fully painted. This solution used a lot in hybrid apps which listened "onPageFinished" of webview to switch views. However, "onPageFinished" is not the exact time of content fully painted. Go a little further, maybe WebViewClient could consider of adding a "FullPaintFinished" API too. 
 
 			<!-- Mask -->
 			<div id="mask" style="position:fixed; width:100%; height:100%; background-color:blue;"></div>
