@@ -105,4 +105,4 @@ With HeroElement, user agent could easily distinguish critical part of web page 
 
 We found the optimizing of first screen content paint will be more effective if we know the exact elements which are shown in the first screen. The concept of [HeroElement](https://docs.google.com/document/d/1yRYfYR1DnHtgwC4HRR04ipVVhT1h5gkI6yPmKCgJkyQ/edit#) proposed by panicker@ is used in [ElementTiming](https://github.com/w3c/charter-webperf/issues/30). We add speeding-up into HeroElement. According to QQBrowser's experiences we know web developers care about the first screen content paint's finishing time. So we add the event notification into HeroElement. Baidu browser had a similar idea before. After discussing with them, we think we could work in this direction.
 
-Any suggestions? @igrigorik, @panicker
+I'm not sure if this has been discussed before. Any suggestion is welcome:) @igrigorik, @panicker
